@@ -1,4 +1,4 @@
-const db = require('./db/connection');
+const db = require('../db/connection');
 
 class SqlMethods {
     constructor(getAll, addOne) {
