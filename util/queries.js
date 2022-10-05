@@ -89,3 +89,36 @@ class EmployeeMethods extends SqlMethods {
     };
 
 };
+
+
+const departments = new DepartmentMethods(`SELECT
+    departments.name,
+    departments.id
+    FROM departments;`,
+    `INSERT INTO departments (name) VALUES (?)`);
+
+const roles = new RoleMethods(`SELECT
+    roles.title,
+    roles.id,
+    departments.name AS department,
+    roles.salary
+    FROM roles
+    LEFT JOIN departments ON roles.department_id = departments.id;`,
+    `INSERT INTO roles (title, salary, department_id) VALUES (?,?,?)`);
+
+const employees = new EmployeeMethods(`SELECT
+    employees.id,
+    employees.first_name,
+    employees.last_name,
+    roles.title AS 'job title',
+    departments.name AS department,
+    roles.salary,
+    CONCAT(managers.first_name, ' ', managers.last_name) AS manager
+    FROM employees
+    LEFT JOIN roles ON employees.role_id = roles.id
+    LEFT JOIN departments ON roles.department_id = departments.id
+    LEFT JOIN employees as managers ON employees.manager_id = managers.id;`,
+    `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)`,
+    `UPDATE employees SET role_id = ? WHERE id = ?`);
+
+module.exports = { departments, roles, employees };
