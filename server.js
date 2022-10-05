@@ -1,5 +1,6 @@
 const db = require('./db/connection');
 const inquirer = require('inquirer');
+const cTable = require('console.table');
 const figlet = require('figlet');
 const { departments, roles, employees } = require('./util/queries');
 
