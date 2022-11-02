@@ -23,7 +23,7 @@ SO THAT I can organize and plan my business
 
 ## INSTALLATION
 
-Node.js will need to be installed in order to run this application.
+Node.js and MySql will need to be installed in order to run this application.
      
 ## TEST
 
